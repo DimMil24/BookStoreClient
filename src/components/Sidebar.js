@@ -1,0 +1,217 @@
+import { Container, styled } from '@mui/material';
+import columns from '../utils/columns';
+import Drawer from '@mui/material/Drawer'
+import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Slider from '@mui/material/Slider'
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import DataContext from '../context/DataContext';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+
+const listStyle = {
+    width: '100%',
+    maxWidth: 360,
+    bgcolor: 'background.paper',
+};
+
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+}));
+
+const Sidebar = ({ isOpen, setIsOpen }) => {
+
+    const [yearRange, setYearRange] = useState([1970, 2023])
+    const [ratingRange, setRatingRange] = useState([0.0, 5.0])
+    const [priceRange, setPriceRange] = useState([1, 100])
+
+    const { setFilter, filter } = useContext(DataContext)
+
+    const handleYearChange = (event, newValue) => {
+        setYearRange(newValue)
+    }
+
+    const handleYearCommited = (event, newValue) => {
+        setFilter({
+            ...filter,
+            y1: yearRange[1],
+            y2: yearRange[0]
+        })
+    }
+
+    const handleRatingRange = (event, newValue) => {
+        setRatingRange(newValue)
+    }
+
+    const handleRatingCommited = (event, newValue) => {
+        setFilter({
+            ...filter,
+            r1: ratingRange[0],
+            r2: ratingRange[1]
+        })
+    }
+
+    const handlePriceChange = (event, newValue) => {
+        setPriceRange(newValue)
+    }
+
+    const handlePriceCommited = (event, newValue) => {
+        setFilter({
+            ...filter,
+            p1: priceRange[0],
+            p2: priceRange[1]
+        })
+    }
+
+    const handleSortChanged = (event) => {
+        setFilter({
+            ...filter,
+            order_by: event.target.value
+        })
+    }
+
+    const handleOrderChanged = (event) => {
+        setFilter({
+            ...filter,
+            desc: event.target.value
+        })
+    }
+
+    return (
+        <Drawer open={isOpen} onClose={() => setIsOpen(false)}>
+            <DrawerHeader>
+                <IconButton onClick={() => setIsOpen(false)}>
+                    <ChevronLeft fontSize="large" />
+                </IconButton>
+            </DrawerHeader>
+
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                <List sx={listStyle} component="nav">
+                    <ListItem>
+                        <ListItemButton component={Link} to='/'>
+                            <ListItemText primary="Home" />
+                        </ListItemButton>
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                        <ListItemButton component="a" href="#simple-list" primary="Inbox">
+                            <ListItemText primary="Products" />
+                        </ListItemButton>
+                    </ListItem>
+                    <Divider light />
+                    <ListItem>
+                        <ListItemButton component="a" href="#simple-list" primary="Inbox">
+                            <ListItemText primary="About" />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+            </Box>
+
+            <Container maxWidth='lg' sx={{ display: 'flex', flexDirection: "column", rowGap: '30px' }}>
+                <Box>
+                    <Typography fontWeight="bold">Year</Typography>
+                    <Box sx={{ display: 'flex', columnGap: '25px', flexDirection: 'row', alignItems: "center" }}>
+                        <Typography width="35px" align='right'>{yearRange[0]}</Typography>
+                        <Slider sx={{ width: '100px' }}
+                            getAriaLabel={() => 'Year range'}
+                            value={yearRange}
+                            onChange={handleYearChange}
+                            onChangeCommitted={handleYearCommited}
+                            valueLabelDisplay="auto"
+                            min={1970}
+                            max={2023} />
+                        <Typography>{yearRange[1]}</Typography>
+                    </Box>
+                </Box>
+
+                <Divider light />
+                <Box>
+                    <Typography fontWeight="bold">Rating</Typography>
+                    <Box display="flex" columnGap="25px" flexDirection="row" alignItems="center">
+                        <Typography width="35px" align='right'>{ratingRange[0]}</Typography>
+                        <Slider sx={{ width: '100px' }}
+                            getAriaLabel={() => 'Rating range'}
+                            value={ratingRange}
+                            onChange={handleRatingRange}
+                            onChangeCommitted={handleRatingCommited}
+                            valueLabelDisplay="auto"
+                            min={0.0}
+                            max={5.0} />
+                        <Typography>{ratingRange[1]}</Typography>
+                    </Box>
+                </Box>
+
+                <Divider light />
+                <Box>
+                    <Typography fontWeight="bold">Price</Typography>
+                    <Box sx={{ display: 'flex', columnGap: '25px', flexDirection: 'row', alignItems: "center" }}>
+                        <Typography width="35px" align='right'>{priceRange[0]}</Typography>
+                        <Slider sx={{ width: '100px' }}
+                            getAriaLabel={() => 'Price range'}
+                            value={priceRange}
+                            onChange={handlePriceChange}
+                            onChangeCommitted={handlePriceCommited}
+                            valueLabelDisplay="auto"
+                            min={1}
+                            max={100} />
+                        <Typography>{priceRange[1]}</Typography>
+                    </Box>
+                </Box>
+
+                <Divider light />
+                <Box>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="sort-by">Sort By</InputLabel>
+                        <Select
+                            labelId="sort-by"
+                            defaultValue={filter.order_by}
+                            value={filter.order_by}
+                            label="Sort By"
+                            onChange={handleSortChanged}
+                        >
+                            {columns
+                                .filter(column => column.field !== 'edit')
+                                .map((column) => {
+                                    return (
+                                        <MenuItem key={column.field} value={column.field}>{column.label}</MenuItem>
+                                    )
+                                })}
+
+                        </Select>
+                    </FormControl>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="order">Order</InputLabel>
+                        <Select
+                            labelId="order"
+                            defaultValue={filter.desc}
+                            value={filter.desc}
+                            label="Order"
+                            onChange={handleOrderChanged}
+                        >
+                            <MenuItem value={false}>Ascending</MenuItem>
+                            <MenuItem value={true}>Descending</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+            </Container>
+
+        </Drawer>
+    );
+};
+
+export default Sidebar;
