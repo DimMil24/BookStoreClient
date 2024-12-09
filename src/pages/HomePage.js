@@ -22,9 +22,12 @@ const HomePageBooks = () => {
         let cleanCategory;
         if (filter.c !== "") {
             cleanCategory = filter.c
+            // filter.c = cleanCategory;
         } else {
-            cleanCategory = ""
+             cleanCategory = ""
+            // filter.c = ""
         }
+
 
         const response = await fetch(fetchUrl + new URLSearchParams({
             y1: filter.y1,
