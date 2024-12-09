@@ -38,7 +38,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
     const [yearRange, setYearRange] = useState([1970, 2023])
     const [ratingRange, setRatingRange] = useState([0.0, 5.0])
-    const [priceRange, setPriceRange] = useState([1, 100])
+    const [priceRange, setPriceRange] = useState([1, 150])
 
     const { setFilter, filter } = useContext(DataContext)
 
@@ -168,7 +168,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                             onChangeCommitted={handlePriceCommited}
                             valueLabelDisplay="auto"
                             min={1}
-                            max={100} />
+                            max={150} />
                         <Typography>{priceRange[1]}</Typography>
                     </Box>
                 </Box>

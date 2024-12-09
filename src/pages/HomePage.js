@@ -17,7 +17,7 @@ const HomePageBooks = () => {
 
     
 
-    const fetchBooks = useCallback(async (page, filter) => {
+    const fetchBooks = useCallback(async (page) => {
         let fetchUrl = "http://localhost:8080/api/books/" + page + "/?"
         let cleanCategory;
         if (filter.c !== "") {
@@ -41,14 +41,14 @@ const HomePageBooks = () => {
         const data = await response.json();
         setPages(data.totalPages - 1)
         return data.content;
-    } ,[])
+    } ,[filter])
 
     useEffect(() => {
         setCurrentPage(1);
     }, [filter])
 
     useEffect(() => {
-        fetchBooks(currentPage-1, filter)
+        fetchBooks(currentPage-1)
             .then(books => {
                 setBooks(books)
                 setLoading(false)
@@ -56,7 +56,7 @@ const HomePageBooks = () => {
             .catch(error => {
                 console.log(error)
             });
-    }, [currentPage, filter,fetchBooks])
+    }, [currentPage,fetchBooks])
 
 
 
@@ -74,7 +74,7 @@ const HomePageBooks = () => {
 
     if (loading) {
         return (
-            <Box sx={{ margin: "20px 0px" }}>
+            <Box sx={{ margin: "20px 0px", minHeight: "calc(100vh - 250px)" }}>
                 <Grid container rowGap={5}>
                     <Grid align="center" item md={4} sm={6} xs={12}>
                         <Skeleton animation="wave" variant="rectangular" width="13rem" height='250px' />

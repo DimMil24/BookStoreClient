@@ -1,5 +1,4 @@
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
@@ -11,13 +10,14 @@ const BookPage = () => {
     const { id } = useParams();
 
 
-    const fetchBooks = async () => {
-        const response = await fetch("http://localhost:8080/api/id/" + id)
-        const data = await response.json();
-        return data;
-    }
-
     useEffect(() => {
+
+        const fetchBooks = async () => {
+            const response = await fetch("http://localhost:8080/api/id/" + id)
+            const data = await response.json();
+            return data;
+        }
+
         fetchBooks()
             .then(books => {
                 setBook(books)
@@ -26,14 +26,14 @@ const BookPage = () => {
             .catch(error => {
                 console.log("xasame")
             });
-    }, [])
+    }, [id])
 
     if (loading) {
         return (<p>loading</p>)
     } else {
         return (
             <Container maxWidth="md" >
-                <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: { xs: "center", md: "start" } }}>
+                <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: { xs: "center", md: "start" }, minHeight: "calc(100vh - 300px)" }}>
                     <Box
                         component="img"
                         sx={{
