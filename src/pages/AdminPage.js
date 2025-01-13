@@ -12,7 +12,7 @@ const AdminPage = () => {
     const { filter } = useContext(DataContext)
 
     const fetchBooks = useCallback(async (page) => {
-        let fetchUrl = "http://localhost:8080/api/books/" + page + "/?"
+        let fetchUrl = process.env.REACT_APP_URL + "books/" + page + "/?"
         let cleanCategory;
         if (filter.c !== "") {
             cleanCategory = filter.c

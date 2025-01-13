@@ -2,10 +2,9 @@ import HomePage from './pages/HomePage';
 import Layout from './components/Layout';
 import BookPage from './pages/BookPage';
 import AdminPage from './pages/AdminPage';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {useEffect, useState} from 'react';
 import DataContext from './context/DataContext';
-
 
 
 function App() {
@@ -25,9 +24,8 @@ function App() {
   const [categories, setCategories] = useState()
 
   const fetchCategories = async () => {
-    const response = await fetch("http://localhost:8080/api/categories")
-    const data = await response.json();
-    return data;
+    const response = await fetch(process.env.REACT_APP_URL + "categories")
+    return await response.json();
   }
 
   useEffect(() => {

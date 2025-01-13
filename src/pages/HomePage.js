@@ -18,7 +18,7 @@ const HomePageBooks = () => {
     
 
     const fetchBooks = useCallback(async (page) => {
-        let fetchUrl = "http://localhost:8080/api/books/" + page + "/?"
+        let fetchUrl = process.env.REACT_APP_URL + "books/" + page + "/?"
         let cleanCategory;
         if (filter.c !== "") {
             cleanCategory = filter.c
@@ -43,7 +43,8 @@ const HomePageBooks = () => {
         }))
         const data = await response.json();
         setPages(data.totalPages - 1)
-        return data.content;
+        return data;
+        // return data.content; FOR JAVA BACKEND
     } ,[filter])
 
     useEffect(() => {
