@@ -37,13 +37,13 @@ const HomePageBooks = () => {
             p1: filter.p1,
             p2: filter.p2,
             c: cleanCategory,
-            s: filter.search,
+            search: filter.search,
             order_by: filter.order_by,
             desc: filter.desc
         }))
         const data = await response.json();
         setPages(data.totalPages - 1)
-        return data;
+        return data.content;
         // return data.content; FOR JAVA BACKEND
     } ,[filter])
 
@@ -52,7 +52,7 @@ const HomePageBooks = () => {
     }, [filter])
 
     useEffect(() => {
-        fetchBooks(currentPage-1)
+        fetchBooks(currentPage)
             .then(books => {
                 setBooks(books)
                 setLoading(false)
