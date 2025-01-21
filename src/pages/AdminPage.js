@@ -27,7 +27,7 @@ const AdminPage = () => {
             p1: filter.p1,
             p2: filter.p2,
             c: cleanCategory,
-            s: filter.search,
+            search: filter.search,
             ps: rowsPerPage,
             order_by: filter.order_by,
             desc: filter.desc
