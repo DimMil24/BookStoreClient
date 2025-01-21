@@ -26,8 +26,8 @@ export default function AdminModal({ open, setOpen, editId, refresh, setRefresh 
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const formJson = Object.fromEntries(formData.entries());
-        await fetch(process.env.REACT_APP_URL + 'update', {
-            method: 'POST',
+        await fetch(process.env.REACT_APP_URL + 'books/id/' + formJson.isbn13, {
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export default function AdminModal({ open, setOpen, editId, refresh, setRefresh 
 
     useEffect(() => {
         const fetchBooks = (async () => {
-            const response = await fetch(process.env.REACT_APP_URL + "id/" + editId)
+            const response = await fetch(process.env.REACT_APP_URL + "books/id/" + editId)
             const data = await response.json();
             return data;
         })

@@ -13,7 +13,7 @@ const BookPage = () => {
     useEffect(() => {
 
         const fetchBooks = async () => {
-            const response = await fetch(process.env.REACT_APP_URL + "id/" + id)
+            const response = await fetch(process.env.REACT_APP_URL + "books/id/" + id)
             const data = await response.json();
             return data;
         }
