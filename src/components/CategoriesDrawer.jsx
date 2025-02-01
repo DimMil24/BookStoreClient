@@ -15,18 +15,18 @@ const CategoriesDrawer = ({ categoriesDrawerOpen, setCategoriesDrawer }) => {
     }
 
     const RenderCategories = () => {
-        return categories.map(categorie => {
+        return categories.map(category => {
             return (
-                <Grid key={categorie} align="center" item md={4} sm={6} xs={12}>
+                <Grid key={category} align="center" item md={4} sm={6} xs={12}>
                     <Button onClick={(event) => {
                         setFilter({...filter,
-                            c:event.currentTarget.textContent,
+                            category:event.currentTarget.textContent,
                             search:""
                         })
                         closeDrawer()
                     }}>
                         <Typography color="white" margin={"5px"} variant='body2'>
-                            {categorie}
+                            {category}
                         </Typography>
                     </Button>
                 </Grid>
