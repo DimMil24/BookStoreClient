@@ -49,8 +49,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const handleYearCommited = (event, newValue) => {
         setFilter({
             ...filter,
-            y1: yearRange[1],
-            y2: yearRange[0]
+            yearHigh: yearRange[1],
+            yearLow: yearRange[0]
         })
     }
 
@@ -61,8 +61,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const handleRatingCommited = (event, newValue) => {
         setFilter({
             ...filter,
-            r1: ratingRange[0],
-            r2: ratingRange[1]
+            ratingLow: ratingRange[0],
+            ratingHigh: ratingRange[1]
         })
     }
 
@@ -73,8 +73,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const handlePriceCommited = (event, newValue) => {
         setFilter({
             ...filter,
-            p1: priceRange[0],
-            p2: priceRange[1]
+            priceLow: priceRange[0],
+            priceHigh: priceRange[1]
         })
     }
 
