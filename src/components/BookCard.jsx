@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import StarIcon from '@mui/icons-material/StarBorder';
 import { Link } from 'react-router-dom';
 
 const BookCard = ({ props }) => {
