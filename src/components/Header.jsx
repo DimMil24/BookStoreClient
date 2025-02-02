@@ -14,7 +14,6 @@ import InputBase from '@mui/material/InputBase';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import Sidebar from './Sidebar';
 import { Link } from 'react-router-dom';
-import CategoriesDrawer from './CategoriesDrawer';
 import DataContext from '../context/DataContext';
 
 const Search = styled('div')(({ theme }) => ({
@@ -66,12 +65,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Header() {
     const [search, setSearch] = useState("");
     const [isOpen, setIsOpen] = useState(false);
-    const [categoriesDrawerOpen, setCategoriesDrawer] = useState(false);
     const { filter, setFilter } = useContext(DataContext)
 
 
     return (
-
         <AppBar position="sticky" sx={{ marginBottom: "40px" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters sx={{ display: "flex" }}>
@@ -127,7 +124,7 @@ function Header() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center' } }}>
                         <Button component={Link} to={"/Home"} onClick={() => setFilter({
                             ...filter,
-                            c: "",
+                            category: "",
                             search:""
                         })}
                             key="Home"
@@ -135,11 +132,11 @@ function Header() {
                         >
                             Home
                         </Button>
-                        <Button onClick={() => setCategoriesDrawer(true)}
-                            key="Products"
+                        <Button component={Link} to={"/Admin"}
+                            key="Admin"
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            Products
+                            Admin
                         </Button>
                         <Button component={Link} to={"/About"}
                             key="About"
@@ -152,7 +149,6 @@ function Header() {
                         e.preventDefault()
                         setFilter(
                             {...filter,
-                                c:"",
                                 search:search
                             }
                         )
@@ -172,7 +168,6 @@ function Header() {
                     <ShoppingBagIcon sx={{ display: { xs: 'flex', md: 'none', justifyContent: 'center' }, flexGrow: "1" }} />
                 </Toolbar>
                 <Sidebar {...{ isOpen, setIsOpen }} />
-                <CategoriesDrawer {... { categoriesDrawerOpen, setCategoriesDrawer }} />
             </Container>
         </AppBar>
     );

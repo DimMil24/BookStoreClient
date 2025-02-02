@@ -15,7 +15,7 @@ const AdminPage = () => {
         let fetchUrl = "http://localhost:8080/api/books/" + page + "/?"
         let cleanCategory;
         if (filter.category !== "") {
-            cleanCategory = filter.c
+            cleanCategory = filter.category
         } else {
             cleanCategory = ""
         }

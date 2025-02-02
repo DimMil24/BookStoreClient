@@ -21,13 +21,10 @@ const HomePageBooks = () => {
         let fetchUrl = "http://localhost:8080/api/books/" + page + "/?"
         let cleanCategory;
         if (filter.category !== "") {
-            cleanCategory = filter.c
-            // filter.c = cleanCategory;
+            cleanCategory = filter.category
         } else {
              cleanCategory = ""
-            // filter.c = ""
         }
-
 
         const response = await fetch(fetchUrl + new URLSearchParams({
             yearHigh: filter.yearHigh,

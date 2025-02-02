@@ -19,7 +19,7 @@ const BookPage = () => {
     useEffect(() => {
 
         const fetchBooks = async () => {
-            const response = await fetch("http://localhost:8080/api/id/" + id)
+            const response = await fetch("http://localhost:8080/api/books/id/" + id)
             const data = await response.json();
             return data;
         }

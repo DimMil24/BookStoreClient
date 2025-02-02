@@ -11,7 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DataContext from '../context/DataContext';
 import FormControl from '@mui/material/FormControl';
@@ -34,13 +34,34 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
+
 const Sidebar = ({ isOpen, setIsOpen }) => {
 
     const [yearRange, setYearRange] = useState([1970, 2023])
     const [ratingRange, setRatingRange] = useState([0.0, 5.0])
     const [priceRange, setPriceRange] = useState([1, 150])
-
     const { setFilter, filter } = useContext(DataContext)
+    const [categories, setCategories] = useState()
+    const [loadingCategories, setLoadingCategories] = useState(true)
+
+
+    const fetchCategories = async () => {
+        const response = await fetch("http://localhost:8080/api/categories")
+        const data = await response.json();
+        return data;
+    }
+
+    useEffect(() => {
+        fetchCategories()
+            .then(c => {
+                setCategories(c)
+                setLoadingCategories(false)
+            })
+            .catch(error => {
+                console.log("xasame")
+            });
+    }, [])
+
 
     const handleYearChange = (event, newValue) => {
         setYearRange(newValue)
@@ -90,6 +111,39 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             ...filter,
             desc: event.target.value
         })
+    }
+
+    const handleCategoryChanged = (event) => {
+        setFilter({
+            ...filter,
+            category: event.target.value
+        })
+    }
+
+    const Test = () => {
+        if (loadingCategories) {
+            return <MenuItem>Loading</MenuItem>
+        }
+        return (
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="category">Category</InputLabel>
+                <Select
+                    labelId="category"
+                    defaultValue=""
+                    value={filter.category}
+                    label="Category"
+                    onChange={handleCategoryChanged}
+                >
+                    <MenuItem value={""}>All</MenuItem>
+                    {categories
+                        .map((category) => {
+                            return (
+                                <MenuItem value={category}>{category}</MenuItem>
+                            )
+                        })}
+                </Select>
+            </FormControl>
+        )
     }
 
     return (
@@ -208,6 +262,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         </Select>
                     </FormControl>
                 </Box>
+                <Divider light />
+                <Test/>
             </Container>
 
         </Drawer>

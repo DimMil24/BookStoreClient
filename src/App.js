@@ -22,27 +22,27 @@ function App() {
     order_by:"title",
     desc:"false"
   })
-  const [categories, setCategories] = useState()
+  // const [categories, setCategories] = useState()
 
-  const fetchCategories = async () => {
-    const response = await fetch("http://localhost:8080/api/categories")
-    const data = await response.json();
-    return data;
-  }
+  // const fetchCategories = async () => {
+  //   const response = await fetch("http://localhost:8080/api/categories")
+  //   const data = await response.json();
+  //   return data;
+  // }
 
-  useEffect(() => {
-    fetchCategories()
-    .then(categorie => {
-        setCategories(categorie)
-    })
-    .catch(error => {
-        console.log("xasame")
-    });
-  }, [])
+  // useEffect(() => {
+  //   fetchCategories()
+  //   .then(categorie => {
+  //       setCategories(categorie)
+  //   })
+  //   .catch(error => {
+  //       console.log("xasame")
+  //   });
+  // }, [])
 
   return (
     <BrowserRouter>
-      <DataContext.Provider value={{ filter, setFilter, categories }}>
+      <DataContext.Provider value={{ filter, setFilter }}>
         <Routes>
           <Route element={<Layout />}>
             <Route index path="/Home" element={<HomePage />} />

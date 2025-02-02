@@ -26,7 +26,7 @@ export default function AdminModal({ open, setOpen, editId, refresh, setRefresh 
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const formJson = Object.fromEntries(formData.entries());
-        await fetch('http://localhost:8080/api/update', {
+        await fetch('http://localhost:8080/api/books/id/' + formJson.isbn13, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -52,7 +52,7 @@ export default function AdminModal({ open, setOpen, editId, refresh, setRefresh 
 
     useEffect(() => {
         const fetchBooks = (async () => {
-            const response = await fetch("http://localhost:8080/api/id/" + editId)
+            const response = await fetch("http://localhost:8080/api/books/id/" + editId)
             const data = await response.json();
             return data;
         })
