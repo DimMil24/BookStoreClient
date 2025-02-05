@@ -74,6 +74,9 @@ const BookPage = () => {
                                 <Typography sx={{ fontSize: "14px", fontWeight: "700", color: "#00000061", marginTop: "10px" }}>
                                     ID: {book.isbn13}
                                 </Typography>
+                                <Typography sx={{ fontSize: "14px", fontWeight: "700", color: "#00000061", marginTop: "10px" }}>
+                                    {book.categories}
+                                </Typography>
                             </Box>
                             <Box display="flex" flexDirection="column">
                                 <Typography variant='h4' alignSelf="flex-end" marginTop="10px" marginBottom="15px">
