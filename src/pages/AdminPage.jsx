@@ -14,21 +14,21 @@ const AdminPage = () => {
     const fetchBooks = useCallback(async (page) => {
         let fetchUrl = process.env.REACT_APP_URL + "books/" + page + "/?"
         let cleanCategory;
-        if (filter.c !== "") {
-            cleanCategory = filter.c
+        if (filter.category !== "") {
+            cleanCategory = filter.category
         } else {
             cleanCategory = ""
         }
         const response = await fetch(fetchUrl + new URLSearchParams({
-            y1: filter.y1,
-            y2: filter.y2,
-            r1: filter.r1,
-            r2: filter.r2,
-            p1: filter.p1,
-            p2: filter.p2,
-            c: cleanCategory,
+            yearHigh: filter.yearHigh,
+            yearLow: filter.yearLow,
+            ratingLow: filter.ratingLow,
+            ratingHigh: filter.ratingHigh,
+            priceLow: filter.priceLow,
+            priceHigh: filter.priceHigh,
+            category: cleanCategory,
             search: filter.search,
-            ps: rowsPerPage,
+            pageSize: rowsPerPage,
             order_by: filter.order_by,
             desc: filter.desc
         }))

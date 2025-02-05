@@ -9,38 +9,22 @@ import DataContext from './context/DataContext';
 
 function App() {
   const [filter, setFilter] = useState({
-    y1: 2023,
-    y2: 1970,
-    r1: 0.0,
-    r2: 5.0,
-    p1: 1,
-    p2: 150,
-    c:"",
+    yearHigh: 2023,
+    yearLow: 1970,
+    ratingLow: 0.0,
+    ratingHigh: 5.0,
+    priceLow: 1,
+    priceHigh: 150,
+    category:"",
     search:"",
-    ps:"",
+    pageSize:"",
     order_by:"title",
     desc:"false"
   })
-  const [categories, setCategories] = useState()
-
-  const fetchCategories = async () => {
-    const response = await fetch(process.env.REACT_APP_URL + "categories")
-    return await response.json();
-  }
-
-  useEffect(() => {
-    fetchCategories()
-    .then(categorie => {
-        setCategories(categorie)
-    })
-    .catch(error => {
-        console.log("xasame")
-    });
-  }, [])
 
   return (
     <BrowserRouter>
-      <DataContext.Provider value={{ filter, setFilter, categories }}>
+      <DataContext.Provider value={{ filter, setFilter }}>
         <Routes>
           <Route element={<Layout />}>
             <Route index path="/Home" element={<HomePage />} />

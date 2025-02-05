@@ -11,7 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DataContext from '../context/DataContext';
 import FormControl from '@mui/material/FormControl';
@@ -39,6 +39,25 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const [yearRange, setYearRange] = useState([1970, 2023])
     const [ratingRange, setRatingRange] = useState([0.0, 5.0])
     const [priceRange, setPriceRange] = useState([1, 150])
+    const [categories, setCategories] = useState()
+    const [loadingCategories, setLoadingCategories] = useState(true)
+
+    const fetchCategories = async () => {
+        const response = await fetch("http://localhost:8080/api/categories")
+        const data = await response.json();
+        return data;
+    }
+
+    useEffect(() => {
+        fetchCategories()
+            .then(c => {
+                setCategories(c)
+                setLoadingCategories(false)
+            })
+            .catch(error => {
+                console.log("xasame")
+            });
+    }, [])
 
     const { setFilter, filter } = useContext(DataContext)
 
@@ -49,8 +68,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const handleYearCommited = (event, newValue) => {
         setFilter({
             ...filter,
-            y1: yearRange[1],
-            y2: yearRange[0]
+            yearHigh: yearRange[1],
+            yearLow: yearRange[0]
         })
     }
 
@@ -61,8 +80,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const handleRatingCommited = (event, newValue) => {
         setFilter({
             ...filter,
-            r1: ratingRange[0],
-            r2: ratingRange[1]
+            ratingLow: ratingRange[0],
+            ratingHigh: ratingRange[1]
         })
     }
 
@@ -73,8 +92,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const handlePriceCommited = (event, newValue) => {
         setFilter({
             ...filter,
-            p1: priceRange[0],
-            p2: priceRange[1]
+            priceLow: priceRange[0],
+            priceHigh: priceRange[1]
         })
     }
 
@@ -90,6 +109,39 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             ...filter,
             desc: event.target.value
         })
+    }
+
+    const handleCategoryChanged = (event) => {
+        setFilter({
+            ...filter,
+            category: event.target.value
+        })
+    }
+
+    const CategoryFilter = () => {
+        if (loadingCategories) {
+            return <MenuItem>Loading</MenuItem>
+        }
+        return (
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="category">Category</InputLabel>
+                <Select
+                    labelId="category"
+                    defaultValue=""
+                    value={filter.category}
+                    label="Category"
+                    onChange={handleCategoryChanged}
+                >
+                    <MenuItem value={""}>All</MenuItem>
+                    {categories
+                        .map((category) => {
+                            return (
+                                <MenuItem value={category}>{category}</MenuItem>
+                            )
+                        })}
+                </Select>
+            </FormControl>
+        )
     }
 
     return (
@@ -208,6 +260,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         </Select>
                     </FormControl>
                 </Box>
+                <Divider light />
+                <CategoryFilter/>
             </Container>
 
         </Drawer>
