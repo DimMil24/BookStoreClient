@@ -170,7 +170,6 @@ function Header() {
                     <ShoppingBagIcon sx={{ display: { xs: 'flex', md: 'none', justifyContent: 'center' }, flexGrow: "1" }} />
                 </Toolbar>
                 <Sidebar {...{ isOpen, setIsOpen }} />
-                <CategoriesDrawer {... { categoriesDrawerOpen, setCategoriesDrawer }} />
             </Container>
         </AppBar>
     );
