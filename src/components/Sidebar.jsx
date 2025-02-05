@@ -43,7 +43,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const [loadingCategories, setLoadingCategories] = useState(true)
 
     const fetchCategories = async () => {
-        const response = await fetch("http://localhost:8080/api/categories")
+        const response = await fetch(process.env.REACT_APP_URL + "categories")
         const data = await response.json();
         return data;
     }

@@ -3,7 +3,7 @@ import Layout from './components/Layout';
 import BookPage from './pages/BookPage';
 import AdminPage from './pages/AdminPage';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import DataContext from './context/DataContext';
 
 
