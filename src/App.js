@@ -21,9 +21,11 @@ function App() {
     desc: "false",
   });
 
+  const [cart, setCart] = useState([]);
+
   return (
     <BrowserRouter>
-      <DataContext.Provider value={{ filter, setFilter }}>
+      <DataContext.Provider value={{ filter, setFilter, cart, setCart }}>
         <Routes>
           <Route element={<Layout />}>
             <Route index path="/Home" element={<HomePage />} />

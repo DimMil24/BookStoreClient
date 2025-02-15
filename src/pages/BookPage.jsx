@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
@@ -10,11 +10,13 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import BookDetails from "../components/BookDetails";
+import DataContext from "../context/DataContext";
 
 const BookPage = () => {
   const [book, setBook] = useState({});
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const { cart, setCart } = useContext(DataContext);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -100,10 +102,35 @@ const BookPage = () => {
                 >
                   {book.price} €
                 </Typography>
-                <Button variant="contained">
-                  Add to Cart{" "}
-                  <AddShoppingCartIcon sx={{ marginLeft: "10px" }} />
-                </Button>
+                <Box
+                  onClick={() => {
+                    var found = false;
+                    for (var i = 0; i < cart.length; i++) {
+                      if (cart[i].isbn13 === book.isbn13) {
+                        cart[i].quantity++;
+                        found = true;
+                        break;
+                      }
+                    }
+
+                    if (!found)
+                      setCart([
+                        ...cart,
+                        {
+                          isbn13: book.isbn13,
+                          name: book.title,
+                          price: book.price,
+                          img: book.thumbnail,
+                          quantity: 1,
+                        },
+                      ]);
+                  }}
+                >
+                  <Button variant="contained">
+                    Add to Cart{" "}
+                    <AddShoppingCartIcon sx={{ marginLeft: "10px" }} />
+                  </Button>
+                </Box>
               </Box>
             </Box>
           </Box>
