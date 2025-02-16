@@ -159,12 +159,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               <ListItemText primary="Admin" />
             </ListItemButton>
           </ListItem>
-          <Divider light />
-          <ListItem>
-            <ListItemButton component="a" href="#simple-list" primary="Inbox">
-              <ListItemText primary="About" />
-            </ListItemButton>
-          </ListItem>
         </List>
       </Box>
 

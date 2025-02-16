@@ -47,8 +47,8 @@ const BookCard = ({ props }) => {
           <CardActions>
             <Box
               onClick={() => {
-                var found = false;
-                for (var i = 0; i < cart.length; i++) {
+                let found = false;
+                for (let i = 0; i < cart.length; i++) {
                   if (cart[i].isbn13 === props.isbn13) {
                     cart[i].quantity++;
                     found = true;

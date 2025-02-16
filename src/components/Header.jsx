@@ -150,14 +150,6 @@ function Header() {
             >
               Admin
             </Button>
-            <Button
-              component={Link}
-              to={"/About"}
-              key="About"
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              About
-            </Button>
           </Box>
           <form
             onSubmit={(e) => {

@@ -1,7 +1,8 @@
-import { ThemeProvider, createTheme } from "@mui/material"
+import {ThemeProvider, createTheme} from "@mui/material"
 import Footer from "./Footer"
 import Header from "./Header"
-import { Outlet } from "react-router-dom"
+import {Outlet} from "react-router-dom"
+import Box from "@mui/material/Box";
 
 
 const defaultTheme = createTheme()
@@ -9,9 +10,12 @@ const defaultTheme = createTheme()
 const Layout = () => {
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Header />
-            <Outlet />
-            <Footer />
+            <Box sx={{display: "flex", flexDirection: "column", minHeight: "100vh"}}>
+                <Header/>
+                <Outlet/>
+                <Footer/>
+            </Box>
+
         </ThemeProvider>
     )
 }
