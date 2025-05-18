@@ -42,7 +42,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const [loadingCategories, setLoadingCategories] = useState(true);
 
   const fetchCategories = async () => {
-    const response = await fetch("http://localhost:8080/api/categories");
+    const response = await fetch(process.env.REACT_APP_URL + "categories");
     const data = await response.json();
     return data;
   };
@@ -148,6 +148,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
       <Box sx={{ display: { xs: "flex", md: "none" } }}>
         <List sx={listStyle} component="nav">
+          <Divider />
           <ListItem>
             <ListItemButton component={Link} to="/">
               <ListItemText primary="Home" />
@@ -193,7 +194,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           </Box>
         </Box>
 
-        <Divider light />
+        <Divider sx={{ opacity: 0.6 }} />
         <Box>
           <Typography fontWeight="bold">Rating</Typography>
           <Box
@@ -219,7 +220,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           </Box>
         </Box>
 
-        <Divider light />
+        <Divider sx={{ opacity: 0.6 }} />
         <Box>
           <Typography fontWeight="bold">Price</Typography>
           <Box
@@ -247,7 +248,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           </Box>
         </Box>
 
-        <Divider light />
+        <Divider sx={{ opacity: 0.6 }} />
         <Box>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="sort-by">Sort By</InputLabel>
@@ -283,7 +284,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             </Select>
           </FormControl>
         </Box>
-        <Divider light />
+        <Divider sx={{ opacity: 0.6 }} />
         <Test />
       </Container>
     </Drawer>

@@ -15,7 +15,7 @@ const HomePageBooks = () => {
 
   const fetchBooks = useCallback(
     async (page) => {
-      let fetchUrl = "http://localhost:8080/api/books/" + page + "/?";
+      let fetchUrl = process.env.REACT_APP_URL + "books/" + page + "/?";
       let cleanCategory;
       if (filter.category !== "") {
         cleanCategory = filter.category;
@@ -50,7 +50,7 @@ const HomePageBooks = () => {
   }, [filter]);
 
   useEffect(() => {
-    fetchBooks(currentPage - 1)
+    fetchBooks(currentPage)
       .then((books) => {
         setBooks(books);
         setLoading(false);
@@ -67,7 +67,7 @@ const HomePageBooks = () => {
   const RenderBooks = () => {
     return books.map((book) => {
       return (
-        <Grid key={book.isbn13} align="center" item md={4} sm={6} xs={12}>
+        <Grid key={book.isbn13} align="center" size={{ md: 4, sm: 6, xs: 12 }}>
           <BookCard props={book} />
         </Grid>
       );
@@ -77,7 +77,7 @@ const HomePageBooks = () => {
   if (loading) {
     return (
       <Box sx={{ margin: "20px 0px", minHeight: "calc(100vh - 250px)" }}>
-        <Grid container rowGap={5}>
+        <Grid container rowGap={10}>
           <Grid align="center" size={{ md: 4, sm: 6, xs: 12 }}>
             <Skeleton
               animation="wave"
