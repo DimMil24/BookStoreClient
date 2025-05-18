@@ -15,7 +15,7 @@ const HomePageBooks = () => {
 
   const fetchBooks = useCallback(
     async (page) => {
-      let fetchUrl = process.env.REACT_APP_URL + "books/" + page + "/?";
+      let fetchUrl = process.env.REACT_APP_URL + "books/page/" + page + "/?";
       let cleanCategory;
       if (filter.category !== "") {
         cleanCategory = filter.category;

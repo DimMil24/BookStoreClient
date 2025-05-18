@@ -15,6 +15,7 @@ import { visuallyHidden } from "@mui/utils";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DataContext from "../context/DataContext";
 import AdminModal from "./AdminModal";
+import AdminCreateModal from "./AdminCreateModal";
 
 const AdminTable = ({
   rows,
@@ -27,15 +28,17 @@ const AdminTable = ({
   setRefresh,
   handleChangePage,
   handleChangeRowsPerPage,
+  openCreate,
+  setOpenCreate,
 }) => {
   const { filter, setFilter } = useContext(DataContext);
-  const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [editId, setEditId] = useState();
 
   const handleClickEdit = (event, id) => {
     event.stopPropagation();
     setEditId(id);
-    setOpen(true);
+    setOpenEdit(true);
   };
 
   const handleRequestSort = (property) => {
@@ -132,9 +135,15 @@ const AdminTable = ({
         />
       </Paper>
       <AdminModal
-        open={open}
-        setOpen={setOpen}
+        openEdit={openEdit}
+        setOpenEdit={setOpenEdit}
         editId={editId}
+        refresh={refresh}
+        setRefresh={setRefresh}
+      />
+      <AdminCreateModal
+        openCreate={openCreate}
+        setOpenCreate={setOpenCreate}
         refresh={refresh}
         setRefresh={setRefresh}
       />

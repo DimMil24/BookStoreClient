@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState, useContext } from "react";
 import AdminTable from "../components/AdminTable";
 import DataContext from "../context/DataContext";
 import Loading from "../components/Loading";
+import { Box, Button } from "@mui/material";
 
 const AdminPage = () => {
   const [books, setBooks] = useState([]);
@@ -11,11 +12,12 @@ const AdminPage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [refresh, setRefresh] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
+  const [openCreate, setOpenCreate] = useState(false);
   const { filter } = useContext(DataContext);
 
   const fetchBooks = useCallback(
     async (page) => {
-      let fetchUrl = process.env.REACT_APP_URL + "books/" + page + "/?";
+      let fetchUrl = process.env.REACT_APP_URL + "books/page/" + page + "/?";
       let cleanCategory;
       if (filter.category !== "") {
         cleanCategory = filter.category;
@@ -70,18 +72,33 @@ const AdminPage = () => {
     <Loading />
   ) : (
     <Container maxWidth="xl" sx={{ marginBottom: "40px" }}>
-      <AdminTable
-        rows={books}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        totalPages={totalPages}
-        refresh={refresh}
-        setRefresh={setRefresh}
-        desc={filter.desc}
-        orderBy={filter.order_by}
-        handleChangePage={handleChangePage}
-        handleChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <AdminTable
+          rows={books}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          totalPages={totalPages}
+          refresh={refresh}
+          setRefresh={setRefresh}
+          desc={filter.desc}
+          orderBy={filter.order_by}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          openCreate={openCreate}
+          setOpenCreate={setOpenCreate}
+        />
+        <Button
+          size="large"
+          variant="contained"
+          sx={{ alignSelf: "flex-end", mt: 2 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpenCreate(true);
+          }}
+        >
+          Create New
+        </Button>
+      </Box>
     </Container>
   );
 };
