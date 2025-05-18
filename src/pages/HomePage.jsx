@@ -78,7 +78,7 @@ const HomePageBooks = () => {
     return (
       <Box sx={{ margin: "20px 0px", minHeight: "calc(100vh - 250px)" }}>
         <Grid container rowGap={5}>
-          <Grid align="center" item md={4} sm={6} xs={12}>
+          <Grid align="center" size={{ md: 4, sm: 6, xs: 12 }}>
             <Skeleton
               animation="wave"
               variant="rectangular"
@@ -86,7 +86,7 @@ const HomePageBooks = () => {
               height="250px"
             />
           </Grid>
-          <Grid align="center" item md={4} sm={6} xs={12}>
+          <Grid align="center" size={{ md: 4, sm: 6, xs: 12 }}>
             <Skeleton
               animation="wave"
               variant="rectangular"
@@ -94,7 +94,7 @@ const HomePageBooks = () => {
               height="250px"
             />
           </Grid>
-          <Grid align="center" item md={4} sm={6} xs={12}>
+          <Grid align="center" size={{ md: 4, sm: 6, xs: 12 }}>
             <Skeleton
               animation="wave"
               variant="rectangular"
@@ -102,7 +102,7 @@ const HomePageBooks = () => {
               height="250px"
             />
           </Grid>
-          <Grid align="center" item md={4} sm={6} xs={12}>
+          <Grid align="center" size={{ md: 4, sm: 6, xs: 12 }}>
             <Skeleton
               animation="wave"
               variant="rectangular"
@@ -110,7 +110,7 @@ const HomePageBooks = () => {
               height="250px"
             />
           </Grid>
-          <Grid align="center" item md={4} sm={6} xs={12}>
+          <Grid align="center" size={{ md: 4, sm: 6, xs: 12 }}>
             <Skeleton
               animation="wave"
               variant="rectangular"
@@ -118,7 +118,7 @@ const HomePageBooks = () => {
               height="250px"
             />
           </Grid>
-          <Grid align="center" item md={4} sm={6} xs={12}>
+          <Grid align="center" size={{ md: 4, sm: 6, xs: 12 }}>
             <Skeleton
               animation="wave"
               variant="rectangular"
@@ -132,10 +132,10 @@ const HomePageBooks = () => {
   } else {
     return (
       <>
-        <Grid container item rowGap={5}>
+        <Grid container rowGap={5}>
           <RenderBooks />
         </Grid>
-        <Grid item>
+        <Grid>
           <Box
             justifyContent={"center"}
             display={"flex"}
