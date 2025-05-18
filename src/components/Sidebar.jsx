@@ -42,7 +42,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const [loadingCategories, setLoadingCategories] = useState(true);
 
   const fetchCategories = async () => {
-    const response = await fetch(process.env.REACT_APP_URL + "categories");
+    const response = await fetch(process.env.REACT_APP_URL + "category");
     const data = await response.json();
     return data;
   };
