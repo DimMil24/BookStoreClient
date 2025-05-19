@@ -39,7 +39,7 @@ const HomePageBooks = () => {
           })
       );
       const data = await response.json();
-      setPages(data.totalPages - 1);
+      setPages(data.totalPages);
       return data.content;
     },
     [filter]

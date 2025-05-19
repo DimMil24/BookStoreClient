@@ -7,7 +7,8 @@ import { Box, Button } from "@mui/material";
 
 const AdminPage = () => {
   const [books, setBooks] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
   const [refresh, setRefresh] = useState(false);
@@ -60,12 +61,15 @@ const AdminPage = () => {
   }, [page, fetchBooks, refresh]);
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    console.log(newPage);
+    setPage(newPage + 1);
+    setPageIndex(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
+    setPageIndex(0);
   };
 
   return loading ? (
@@ -75,7 +79,7 @@ const AdminPage = () => {
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <AdminTable
           rows={books}
-          page={page}
+          page={pageIndex}
           rowsPerPage={rowsPerPage}
           totalPages={totalPages}
           refresh={refresh}
