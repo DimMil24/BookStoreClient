@@ -52,7 +52,7 @@ const BookCard = ({ props }) => {
         <CardMedia
           style={styles.media}
           sx={{ objectFit: "contain" }}
-          image={props.thumbnail}
+          image={props.thumbnail ? props.thumbnail : "/fallback.jpg"}
           component="img"
         />
         <CardContent>

@@ -52,7 +52,7 @@ const BookPage = () => {
           <Box
             component="img"
             alt="Book Cover"
-            src={book.thumbnail}
+            src={book.thumbnail ? book.thumbnail : "/fallback.jpg"}
             sx={{
               height: 300,
               maxHeight: { xs: 233, md: 300 },
