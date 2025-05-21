@@ -8,6 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Loading from "./Loading";
+import { useAuth } from "../context/AuthContext";
 
 export default function AdminModal({
   openEdit,
@@ -18,13 +19,15 @@ export default function AdminModal({
 }) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+  const { token } = useAuth();
 
   const handleDelete = async () => {
-    await fetch(process.env.REACT_APP_URL + "books/" + editId, {
+    await fetch(process.env.REACT_APP_URL + "admin/books/" + editId, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     setRefresh(!refresh);
@@ -40,11 +43,12 @@ export default function AdminModal({
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
-    await fetch(process.env.REACT_APP_URL + "books/" + formJson.isbn13, {
+    await fetch(process.env.REACT_APP_URL + "admin/books/" + formJson.isbn13, {
       method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         isbn13: formJson.isbn13,
@@ -79,7 +83,7 @@ export default function AdminModal({
           setLoading(false);
         })
         .catch((error) => {
-          console.log("xasame");
+          console.log(error);
         });
     }
   }, [openEdit, editId]);

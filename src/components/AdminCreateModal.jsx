@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useAuth } from "../context/AuthContext";
 
 export default function AdminCreateModal({
   openCreate,
@@ -13,6 +14,8 @@ export default function AdminCreateModal({
   refresh,
   setRefresh,
 }) {
+  const { token } = useAuth();
+
   const handleClose = () => {
     setOpenCreate(false);
   };
@@ -21,11 +24,12 @@ export default function AdminCreateModal({
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
-    await fetch(process.env.REACT_APP_URL + "books", {
+    await fetch(process.env.REACT_APP_URL + "admin/books", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         isbn13: formJson.isbn13,

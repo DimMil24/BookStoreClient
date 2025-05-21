@@ -4,6 +4,7 @@ import AdminTable from "../components/AdminTable";
 import DataContext from "../context/DataContext";
 import Loading from "../components/Loading";
 import { Box, Button } from "@mui/material";
+import { useAuth } from "../context/AuthContext";
 
 const AdminPage = () => {
   const [books, setBooks] = useState([]);
@@ -15,10 +16,12 @@ const AdminPage = () => {
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [openCreate, setOpenCreate] = useState(false);
   const { filter } = useContext(DataContext);
+  const { token } = useAuth();
 
   const fetchBooks = useCallback(
     async (page) => {
-      let fetchUrl = process.env.REACT_APP_URL + "books/page/" + page + "/?";
+      let fetchUrl =
+        process.env.REACT_APP_URL + "admin/books/page/" + page + "/?";
       let cleanCategory;
       if (filter.category !== "") {
         cleanCategory = filter.category;
@@ -39,13 +42,20 @@ const AdminPage = () => {
             pageSize: rowsPerPage,
             order_by: filter.order_by,
             desc: filter.desc,
-          })
+          }),
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const data = await response.json();
       setTotalPages(data.totalPages - 1);
       return data.content;
     },
-    [rowsPerPage, filter]
+    [rowsPerPage, filter, token]
   );
 
   useEffect(() => {
@@ -61,7 +71,6 @@ const AdminPage = () => {
   }, [page, fetchBooks, refresh]);
 
   const handleChangePage = (event, newPage) => {
-    console.log(newPage);
     setPage(newPage + 1);
     setPageIndex(newPage);
   };

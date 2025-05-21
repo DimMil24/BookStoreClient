@@ -32,7 +32,7 @@ const BookPage = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log("xasame");
+        console.log(error);
       });
   }, [id]);
 

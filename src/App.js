@@ -5,6 +5,10 @@ import AdminPage from "./pages/AdminPage";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import DataContext from "./context/DataContext";
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import { RequireAuth } from "./utils/auth/RequireAuth";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   const [filter, setFilter] = useState({
@@ -24,18 +28,24 @@ function App() {
   const [cart, setCart] = useState([]);
 
   return (
-    <BrowserRouter>
-      <DataContext.Provider value={{ filter, setFilter, cart, setCart }}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route index path="/Home" element={<HomePage />} />
-            <Route path="/books/:id" element={<BookPage />} />
-            <Route path="/Admin" element={<AdminPage />} />
-            <Route path="*" element={<Navigate to="/Home" replace />}></Route>
-          </Route>
-        </Routes>
-      </DataContext.Provider>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <DataContext.Provider value={{ filter, setFilter, cart, setCart }}>
+          <Routes>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route element={<Layout />}>
+              <Route index path="/Home" element={<HomePage />} />
+              <Route path="/books/:id" element={<BookPage />} />
+              <Route element={<RequireAuth />}>
+                <Route path="/Admin" element={<AdminPage />} />
+              </Route>
+              <Route path="*" element={<Navigate to="/Home" replace />}></Route>
+            </Route>
+          </Routes>
+        </DataContext.Provider>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

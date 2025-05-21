@@ -15,6 +15,7 @@ import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import DataContext from "../context/DataContext";
 import CartPopup from "./CartPopup";
+import { useAuth } from "../context/AuthContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,6 +64,7 @@ function Header() {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { filter, setFilter } = useContext(DataContext);
+  const { user, logout } = useAuth();
 
   return (
     <AppBar position="sticky" sx={{ marginBottom: "40px" }}>
@@ -163,7 +165,6 @@ function Header() {
               </SearchIconWrapper>
               <StyledInputBase
                 value={search}
-                onSubmit={() => console.log(search)}
                 onChange={(e) => {
                   setSearch(e.target.value);
                 }}
@@ -173,6 +174,9 @@ function Header() {
             </Search>
           </form>
           <CartPopup />
+          {user && (
+            <Typography onClick={() => logout()}>{user.username}</Typography>
+          )}
         </Toolbar>
         <Sidebar {...{ isOpen, setIsOpen }} />
       </Container>
