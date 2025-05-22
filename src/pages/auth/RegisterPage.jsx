@@ -77,7 +77,7 @@ const RegisterPage = () => {
             required
           />
           <TextField
-            label="FirstName"
+            label="Username"
             variant="outlined"
             fullWidth
             margin="normal"
