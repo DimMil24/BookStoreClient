@@ -18,7 +18,7 @@ For the backend click [here](https://github.com/DimMil24/BookStoreServer-C-Sharp
 
 ## Admin Page
 
-Books can be added, edited and deleted.
+Books can be added, edited and deleted only if the user is logged in.
 
 ![Admin Page](assets/adminPage.gif)
 
