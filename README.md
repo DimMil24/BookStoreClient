@@ -11,6 +11,7 @@ For the backend click [here](https://github.com/DimMil24/BookStoreServer-C-Sharp
 ## Features
 
 - Responsive Design
+- JWT Authentication
 - Search with filters
 - Group By Category
 - Admin Book Management
@@ -19,7 +20,7 @@ For the backend click [here](https://github.com/DimMil24/BookStoreServer-C-Sharp
 
 Books can be added, edited and deleted.
 
-![Admin Page](assets/adminscreen.gif)
+![Admin Page](assets/adminPage.gif)
 
 ## Responsive Design
 
